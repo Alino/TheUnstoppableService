@@ -55,3 +55,4 @@ pytest -q
 - Default search backend is SQLite FTS.
 - Elasticsearch can be enabled via env vars (`UNSTOPPABLE_SEARCH_BACKEND=elasticsearch`).
 - Admin and webhook secrets are required at runtime.
+- Billing-gated `GET /search` may return HTTP `402 Payment Required` with x402-style metadata (see `docs/OPERATIONS.md`).

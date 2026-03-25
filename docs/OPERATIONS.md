@@ -25,6 +25,15 @@ Protected endpoints require:
 - `GET /payments/receipts`
 - `GET /payments/receipts/export?format=jsonl|csv`
 
+## Search Payment Challenges
+
+- `GET /search` may return `402 Payment Required` when API key billing blocks a query.
+- Current responses include basic x402-style hints via headers:
+  - `WWW-Authenticate: x402`
+  - `X-402-Topup-Endpoint: /apikeys/topup`
+  - `X-402-Payment-Intent-Endpoint: /payments/intents/create`
+  - `X-402-Price`, `X-402-Asset`, `X-402-Reason`
+
 ## Tests
 
 ```bash

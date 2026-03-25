@@ -144,6 +144,24 @@ def test_api_key_billing_and_usage_tracking(tmp_path: Path) -> None:
     assert usage.json()["daily"][0]["queries"] >= 1
 
 
+def test_search_payment_required_returns_x402_hints(tmp_path: Path) -> None:
+    client = _bootstrap_client(tmp_path)
+
+    blocked = client.get(
+        "/search", params={"q": "domain", "limit": 2}, headers={"X-API-Key": "bad-key"}
+    )
+    assert blocked.status_code == 402
+    assert blocked.headers["www-authenticate"] == "x402"
+    assert blocked.headers["x-402-topup-endpoint"] == "/apikeys/topup"
+    assert (
+        blocked.headers["x-402-payment-intent-endpoint"] == "/payments/intents/create"
+    )
+
+    payload = blocked.json()["detail"]
+    assert payload["error"] == "invalid api key"
+    assert payload["x402"]["accepts"][0]["scheme"] == "api-key-credit"
+
+
 def test_policy_blocks_large_payment_intent(tmp_path: Path) -> None:
     client = _bootstrap_client(tmp_path)
     headers = {"X-Admin-Token": ADMIN_TOKEN}

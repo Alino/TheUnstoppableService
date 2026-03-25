@@ -130,6 +130,49 @@ def _treasury_service(request: Request):
     return getattr(request.app.state, "treasury_service", None)
 
 
+def _payment_required_headers(billing: dict) -> dict[str, str]:
+    charged = float(billing.get("charged_usd", 0.0) or 0.0)
+    credit = billing.get("credit_usd")
+    daily_limit = billing.get("daily_limit")
+    headers = {
+        "WWW-Authenticate": "x402",
+        "X-402-Reason": str(billing.get("error", "payment required")),
+        "X-402-Topup-Endpoint": "/apikeys/topup",
+        "X-402-Payment-Intent-Endpoint": "/payments/intents/create",
+        "X-402-Asset": "USD",
+        "X-402-Price": f"{charged:.4f}",
+    }
+    if credit is not None:
+        headers["X-402-Current-Credit"] = str(credit)
+    if daily_limit is not None:
+        headers["X-402-Daily-Limit"] = str(daily_limit)
+    return headers
+
+
+def _raise_payment_required(billing: dict) -> None:
+    detail = {
+        "error": billing.get("error", "query not authorized"),
+        "x402": {
+            "accepts": [
+                {
+                    "scheme": "api-key-credit",
+                    "asset": "USD",
+                    "topup_endpoint": "/apikeys/topup",
+                    "payment_intent_endpoint": "/payments/intents/create",
+                }
+            ],
+            "price_usd": float(billing.get("charged_usd", 0.0) or 0.0),
+            "credit_usd": billing.get("credit_usd"),
+            "daily_limit": billing.get("daily_limit"),
+        },
+    }
+    raise HTTPException(
+        status_code=402,
+        detail=detail,
+        headers=_payment_required_headers(billing),
+    )
+
+
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}
@@ -348,9 +391,7 @@ def search(
         api_key = request.headers.get("x-api-key")
         billing = authorize_and_record(conn, api_key)
         if not billing.get("allowed", False):
-            raise HTTPException(
-                status_code=402, detail=billing.get("error", "query not authorized")
-            )
+            _raise_payment_required(billing)
 
         if float(billing.get("charged_usd", 0.0)) > 0:
             treasury = _treasury_service(request)

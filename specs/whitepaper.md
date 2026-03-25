@@ -427,6 +427,7 @@ If donations are insufficient, the Brain can activate a contextual ad system:
 
 - Free tier: limited queries per day for developers
 - Paid tier: higher rate limits, bulk access, paid in crypto
+- Payment-gated requests return HTTP `402 Payment Required` with x402-style challenge metadata so automated agents can discover how to pay
 - The Brain adjusts pricing and limits based on demand and costs
 
 ### 7.2 Treasury Management
@@ -595,6 +596,7 @@ Anyone can independently verify: How much money the service has. How it's spendi
 
 - Dynamic donation page with real-time treasury/runway display
 - API access tier (free + paid)
+- HTTP `402` payment challenge flow for API clients (x402-style metadata for agent interoperability)
 - Contextual ad system (ready but dormant — activated by Brain if needed)
 - ENS name registration and resolution
 - Brain optimizes crawl priorities based on user query patterns
