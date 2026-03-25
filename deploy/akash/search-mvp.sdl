@@ -1,0 +1,43 @@
+version: "2.0"
+
+services:
+  unstoppable-api:
+    image: your-dockerhub-user/unstoppable-service:phase0
+    expose:
+      - port: 8080
+        as: 80
+        to:
+          - global: true
+    command:
+      - python
+      - -m
+      - unstoppable.main
+      - run
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+      - --autonomy
+
+profiles:
+  compute:
+    unstoppable-api:
+      resources:
+        cpu:
+          units: "1"
+        memory:
+          size: 1Gi
+        storage:
+          - size: 2Gi
+  placement:
+    westcoast:
+      pricing:
+        unstoppable-api:
+          denom: uakt
+          amount: 1000
+
+deployment:
+  unstoppable:
+    westcoast:
+      profile: unstoppable-api
+      count: 1

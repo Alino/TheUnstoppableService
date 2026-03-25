@@ -1,0 +1,71 @@
+services:
+  api:
+    build: .
+    command:
+      [
+        "python",
+        "-m",
+        "unstoppable.main",
+        "serve",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8080",
+      ]
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+      - ./treasury_state.json:/app/treasury_state.json
+      - ./seeds.txt:/app/seeds.txt
+
+  crawler:
+    build: .
+    command:
+      [
+        "python",
+        "-m",
+        "unstoppable.main",
+        "run-crawler-worker",
+        "--worker-id",
+        "crawler-1",
+        "--batch-size",
+        "8",
+        "--interval-seconds",
+        "15",
+        "--delay-seconds",
+        "0.05",
+      ]
+    volumes:
+      - ./data:/app/data
+      - ./seeds.txt:/app/seeds.txt
+
+  indexer:
+    build: .
+    command:
+      [
+        "python",
+        "-m",
+        "unstoppable.main",
+        "run-indexer-worker",
+        "--interval-seconds",
+        "20",
+      ]
+    volumes:
+      - ./data:/app/data
+
+  brain:
+    build: .
+    command:
+      [
+        "python",
+        "-m",
+        "unstoppable.main",
+        "run-brain-worker",
+        "--state-file",
+        "treasury_state.json",
+        "--interval-seconds",
+        "20",
+      ]
+    volumes:
+      - ./treasury_state.json:/app/treasury_state.json

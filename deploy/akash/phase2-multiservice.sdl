@@ -1,0 +1,124 @@
+version: "2.0"
+
+services:
+  api:
+    image: your-dockerhub-user/unstoppable-service:phase2
+    command:
+      - python
+      - -m
+      - unstoppable.main
+      - serve
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+    expose:
+      - port: 8080
+        as: 80
+        to:
+          - global: true
+
+  crawler:
+    image: your-dockerhub-user/unstoppable-service:phase2
+    command:
+      - python
+      - -m
+      - unstoppable.main
+      - run-crawler-worker
+      - --worker-id
+      - crawler-1
+      - --batch-size
+      - "10"
+      - --interval-seconds
+      - "20"
+
+  indexer:
+    image: your-dockerhub-user/unstoppable-service:phase2
+    command:
+      - python
+      - -m
+      - unstoppable.main
+      - run-indexer-worker
+      - --interval-seconds
+      - "30"
+
+  brain:
+    image: your-dockerhub-user/unstoppable-service:phase2
+    command:
+      - python
+      - -m
+      - unstoppable.main
+      - run-brain-worker
+      - --state-file
+      - treasury_state.json
+      - --interval-seconds
+      - "30"
+
+profiles:
+  compute:
+    api:
+      resources:
+        cpu:
+          units: "1"
+        memory:
+          size: 1Gi
+        storage:
+          - size: 2Gi
+    crawler:
+      resources:
+        cpu:
+          units: "1"
+        memory:
+          size: 1Gi
+        storage:
+          - size: 2Gi
+    indexer:
+      resources:
+        cpu:
+          units: "1"
+        memory:
+          size: 1Gi
+        storage:
+          - size: 2Gi
+    brain:
+      resources:
+        cpu:
+          units: "0.5"
+        memory:
+          size: 512Mi
+        storage:
+          - size: 1Gi
+
+  placement:
+    region1:
+      pricing:
+        api:
+          denom: uakt
+          amount: 1400
+        crawler:
+          denom: uakt
+          amount: 1200
+        indexer:
+          denom: uakt
+          amount: 1000
+        brain:
+          denom: uakt
+          amount: 800
+
+deployment:
+  unstoppable-phase2:
+    region1:
+      profile: api
+      count: 1
+  unstoppable-crawler:
+    region1:
+      profile: crawler
+      count: 1
+  unstoppable-indexer:
+    region1:
+      profile: indexer
+      count: 1
+  unstoppable-brain:
+    region1:
+      profile: brain
+      count: 1

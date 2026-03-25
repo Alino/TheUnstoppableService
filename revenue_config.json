@@ -1,0 +1,52 @@
+{
+  "ads": {
+    "enabled": false,
+    "fallback_enabled": true,
+    "activate_if_runway_below_months": 1.5,
+    "max_ads_per_query": 2
+  },
+  "catalog": [
+    {
+      "id": "ad-privacy-wallet",
+      "title": "Private Crypto Wallet",
+      "url": "https://example.com/privacy-wallet",
+      "description": "Self-custody wallet built for private payments.",
+      "keywords": [
+        "wallet",
+        "bitcoin",
+        "monero",
+        "zcash",
+        "crypto"
+      ],
+      "bid_usd": 0.02
+    },
+    {
+      "id": "ad-decentralized-vps",
+      "title": "Decentralized Cloud Compute",
+      "url": "https://example.com/decentralized-cloud",
+      "description": "Deploy global workloads on community hardware.",
+      "keywords": [
+        "server",
+        "cloud",
+        "hosting",
+        "compute",
+        "decentralized"
+      ],
+      "bid_usd": 0.03
+    },
+    {
+      "id": "ad-open-source-search",
+      "title": "Open Source Search Toolkit",
+      "url": "https://example.com/open-search",
+      "description": "Build independent search products with transparent ranking.",
+      "keywords": [
+        "search",
+        "ranking",
+        "index",
+        "crawler",
+        "opensource"
+      ],
+      "bid_usd": 0.015
+    }
+  ]
+}

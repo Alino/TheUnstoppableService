@@ -1,0 +1,12 @@
+{
+  "payments": {
+    "enabled": true,
+    "max_single_payment_usd": 50.0,
+    "max_daily_payment_usd": 150.0,
+    "min_treasury_buffer_usd": 25.0,
+    "allow_autopay": true,
+    "retry_max_attempts": 5,
+    "retry_base_delay_seconds": 30,
+    "retry_max_delay_seconds": 1800
+  }
+}

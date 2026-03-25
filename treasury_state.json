@@ -1,0 +1,171 @@
+{
+  "balances_usd": {
+    "btc": 120.0,
+    "xmr": 30.0,
+    "zec": 10.0,
+    "usdc": 78.9
+  },
+  "monthly_burn_usd": 110.0,
+  "monthly_donation_income_usd": 45.0,
+  "infra": {
+    "monthly_target_cost_usd": 110.0,
+    "accrued_hosting_due_usd": 0.0014853395061728393,
+    "autopay_threshold_usd": 10.0
+  },
+  "donations": [],
+  "payments": [
+    {
+      "id": "pay-1774458196",
+      "timestamp": "2026-03-25T17:03:16.506468+00:00",
+      "provider": "akash",
+      "amount_usd": 4.0,
+      "status": "paid",
+      "intent_id": "pay-1774458189",
+      "signer": "mock-signer",
+      "txid": "sim-pay-1774458189",
+      "tx_status": "simulated",
+      "confirmations": 0,
+      "last_status_check": "2026-03-25T17:03:23.149635+00:00",
+      "executor_meta": {
+        "mode": "mock"
+      },
+      "tx_status_meta": {
+        "txid": "sim-pay-1774458189",
+        "status": "simulated",
+        "confirmations": 0
+      }
+    },
+    {
+      "id": "pay-1774459003",
+      "timestamp": "2026-03-25T17:16:43.886502+00:00",
+      "provider": "akash",
+      "amount_usd": 3.5,
+      "status": "paid",
+      "intent_id": "pay-1774458991",
+      "signer": "mock-signer",
+      "txid": "sim-pay-1774458991",
+      "tx_status": "confirmed",
+      "confirmations": 2,
+      "last_status_check": "2026-03-25T17:17:19.533655+00:00",
+      "executor_meta": {
+        "mode": "mock"
+      },
+      "webhook_source": "executor-webhook",
+      "webhook_payload": {
+        "payment_id": "pay-1774459003",
+        "txid": "sim-pay-1774458991",
+        "status": "confirmed",
+        "confirmations": 2
+      }
+    },
+    {
+      "id": "pay-1774459698",
+      "timestamp": "2026-03-25T17:28:18.103774+00:00",
+      "provider": "akash",
+      "amount_usd": 2.5,
+      "status": "paid",
+      "intent_id": "pay-1774459686",
+      "signer": "mock-signer",
+      "txid": "sim-pay-1774459686",
+      "tx_status": "confirmed",
+      "confirmations": 4,
+      "last_status_check": "2026-03-25T17:28:57.563416+00:00",
+      "executor_meta": {
+        "mode": "mock"
+      },
+      "webhook_source": "executor-webhook",
+      "webhook_payload": {
+        "payment_id": "pay-1774459698",
+        "txid": "sim-pay-1774459686",
+        "status": "confirmed",
+        "confirmations": 4
+      }
+    },
+    {
+      "id": "pay-1774462118",
+      "timestamp": "2026-03-25T18:08:38.320067+00:00",
+      "provider": "akash",
+      "amount_usd": 1.1,
+      "status": "paid",
+      "intent_id": "pay-1774462112",
+      "signer": "mock-signer",
+      "txid": "sim-pay-1774462112",
+      "tx_status": "submitted",
+      "confirmations": 0,
+      "last_status_check": "2026-03-25T18:08:38.320128+00:00",
+      "executor_meta": {
+        "mode": "mock"
+      }
+    }
+  ],
+  "swaps": [],
+  "payment_intents": [
+    {
+      "id": "pay-1774458189",
+      "timestamp": "2026-03-25T17:03:09.306655+00:00",
+      "provider": "akash",
+      "reason": "manual",
+      "amount_usd": 4.0,
+      "status": "executed",
+      "policy": {
+        "allowed": true,
+        "reason": "policy approved",
+        "evaluated_at": "2026-03-25T17:03:09.306645+00:00"
+      },
+      "executed_at": "2026-03-25T17:03:16.506490+00:00",
+      "payment_id": "pay-1774458196"
+    },
+    {
+      "id": "pay-1774458991",
+      "timestamp": "2026-03-25T17:16:31.056113+00:00",
+      "provider": "akash",
+      "reason": "manual",
+      "amount_usd": 3.5,
+      "status": "executed",
+      "policy": {
+        "allowed": true,
+        "reason": "policy approved",
+        "evaluated_at": "2026-03-25T17:16:31.056105+00:00"
+      },
+      "executed_at": "2026-03-25T17:16:43.886515+00:00",
+      "payment_id": "pay-1774459003"
+    },
+    {
+      "id": "pay-1774459686",
+      "timestamp": "2026-03-25T17:28:06.446778+00:00",
+      "provider": "akash",
+      "reason": "manual",
+      "amount_usd": 2.5,
+      "status": "executed",
+      "policy": {
+        "allowed": true,
+        "reason": "policy approved",
+        "evaluated_at": "2026-03-25T17:28:06.446734+00:00"
+      },
+      "executed_at": "2026-03-25T17:28:18.103788+00:00",
+      "payment_id": "pay-1774459698"
+    },
+    {
+      "id": "pay-1774462112",
+      "timestamp": "2026-03-25T18:08:32.556963+00:00",
+      "provider": "akash",
+      "reason": "manual",
+      "amount_usd": 1.1,
+      "status": "executed",
+      "policy": {
+        "allowed": true,
+        "reason": "policy approved",
+        "evaluated_at": "2026-03-25T18:08:32.556954+00:00"
+      },
+      "executed_at": "2026-03-25T18:08:38.320130+00:00",
+      "payment_id": "pay-1774462118"
+    }
+  ],
+  "wallet_sync": {
+    "enabled": false,
+    "source": "none",
+    "last_sync": null,
+    "last_error": null
+  },
+  "updated_at": "2026-03-25T18:33:51.958778+00:00"
+}
